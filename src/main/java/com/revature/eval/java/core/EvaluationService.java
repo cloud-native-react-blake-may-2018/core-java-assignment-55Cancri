@@ -4,6 +4,9 @@ import java.time.temporal.Temporal;
 import java.util.List;
 import java.util.Map;
 
+import java.util.Arrays;
+import java.util.ArrayList;
+
 public class EvaluationService {
 
 	/**
@@ -31,7 +34,16 @@ public class EvaluationService {
 	 */
 	public String acronym(String phrase) {
 		// TODO Write an implementation for this method declaration
-		return null;
+        String[] result = phrase.split(" ");
+        String acronym = "";
+        
+        for (int i = 0; i < result.length; i++) {
+            String word = result[i];
+            char letter = word.charAt(0);
+            acronym += letter;
+        }
+        System.out.println();
+		return acronym;
 	}
 
 	/**
@@ -85,17 +97,30 @@ public class EvaluationService {
 
 		public boolean isEquilateral() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			
+			if (sideOne == sideTwo && sideTwo == sideThree) {
+				return true;
+			} else {
+				return false;				
+			}
 		}
 
 		public boolean isIsosceles() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if ((sideOne == sideTwo && sideTwo != sideThree) || (sideOne == sideThree && sideThree != sideTwo)) {
+				return true;
+			} else {
+				return false;	
+			}
 		}
 
 		public boolean isScalene() {
 			// TODO Write an implementation for this method declaration
-			return false;
+			if (sideOne != sideTwo && sideOne != sideThree && sideTwo != sideThree) {
+				return true;
+			} else {				
+				return false;
+			}
 		}
 
 	}
@@ -117,7 +142,46 @@ public class EvaluationService {
 	 */
 	public int getScrabbleScore(String string) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+        char[] word = string.toCharArray();
+        int score = 0;
+
+        for (int i = 0; i < word.length; i++) {
+            char letter = Character.toUpperCase(word[i]);
+            
+            switch (letter) {
+                case 'Q':
+                case 'Z':
+                    score += 10;
+                    break;
+                case 'J':
+                case 'X':
+                    score += 8;
+                    break;
+                case 'K':
+                    score += 5;
+                    break;
+                case 'F':
+                case 'H':
+                case 'V':
+                case 'W':
+                case 'Y':
+                    score += 4;
+                    break;
+                case 'B':
+                case 'C':
+                case 'M':
+                case 'P':
+                    score += 3;
+                    break;
+                case 'D':
+                case 'G':
+                    score += 2;
+                    break;
+                default:
+                    score += 1;
+            }
+        }
+        return score;
 	}
 
 	/**
@@ -153,7 +217,11 @@ public class EvaluationService {
 	 */
 	public String cleanPhoneNumber(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+        String input = "613.995.0253";
+        String regex = input.replaceAll("[a-zA-Z\\p{Punct} ]", "");
+        String phone = regex.substring(Math.max(0, regex.length() - 10));
+		
+		return phone;
 	}
 
 	/**
@@ -167,6 +235,29 @@ public class EvaluationService {
 	 */
 	public Map<String, Integer> wordCount(String string) {
 		// TODO Write an implementation for this method declaration
+//        String input = "olly olly in come free";
+//        String[] seq = input.split(" ");
+//        
+//        ArrayList<String> iso = new ArrayList<String>();
+//        ArrayList<Integer> num = new ArrayList<Integer>();
+//
+//         
+//        for (int i = 0; i < seq.length; i++) {
+//            String word = seq[i];
+//            int count = 1;
+//            
+//            if (iso.contains(word)) {
+//                count++;
+//                num.add(i, count);
+//            } else {
+//                iso.add(word);
+//                if (i < seq.length - 1) {
+//                    num.add(i, 1);
+//                }
+//            }
+//        }
+//        
+//        System.out.println(iso + ": " + num);
 		return null;
 	}
 
@@ -247,7 +338,30 @@ public class EvaluationService {
 	 */
 	public String toPigLatin(String string) {
 		// TODO Write an implementation for this method declaration
-		return null;
+        String input = string;
+        
+        char initial = input.charAt(0);
+        char next = input.charAt(1);
+        char end = input.charAt(2);
+        String first = Character.toString(initial).toLowerCase();
+        String second = Character.toString(next).toLowerCase();
+        String third = Character.toString(end).toLowerCase();
+        char[] vowels = {'a','e','i','o','u'};
+        
+        String piglatin = "";
+        
+        for (char v : vowels) {
+            String vowel = Character.toString(v).toLowerCase();
+            
+            if (vowel.equals(first)) {
+                input = input + "ay";
+            } else if (vowel.equals(second)) {
+                input = input.substring(1) + first + "ay";
+            } else if (vowel.equals(third)) {
+                input = input.substring(2) + first + second + "ay";
+            }
+        }
+		return input;
 	}
 
 	/**
@@ -267,7 +381,31 @@ public class EvaluationService {
 	 */
 	public boolean isArmstrongNumber(int input) {
 		// TODO Write an implementation for this method declaration
-		return false;
+        int finalSum = 0;
+        
+        String number = Integer.toString(input);
+        int size = number.length();
+        
+        // defines array size
+        String[] digits = new String[number.length()];
+        
+        // assigns each number to int array
+        for (int i = 0; i < number.length(); i++) {
+            digits[i] = number.valueOf(number.charAt(i));
+        }
+        
+        for (int i = 0; i < size; i++) {
+            String d = digits[i];
+            double currentNumber = Double.parseDouble(d);
+            int value = (int) Math.pow(currentNumber, size);
+            finalSum += value;
+        }
+        
+        if (finalSum == input) {
+            return true;
+        } else {
+        	return false;
+        }
 	}
 
 	/**
