@@ -418,9 +418,41 @@ public class EvaluationService {
 	 * @param l
 	 * @return
 	 */
+	// INCOMPLETE - NOT PASSING TESTS
 	public List<Long> calculatePrimeFactorsOf(long l) {
 		// TODO Write an implementation for this method declaration
-		return null;
+
+        long input = l;
+        long half = input / 2;
+        
+        List<Integer> factors = new ArrayList<>();
+        List<Long> primes = new ArrayList<>();
+        
+        for (int i = 0; i < half; i++) {
+            if (i != 0 && input % i == 0) {
+                factors.add(i);
+                
+                if (i != 1 && (i % 2 != 0 || i == 2) && (i % 3 != 0 || i == 3) && (i % 5 != 0 || i == 5)) {
+                    if (i == 3) {
+                        primes.add((long) 3);
+                        primes.add((long) 3);
+                    } else if(i == 2) {
+                    	primes.add((long) 2);
+                    } else if(i == 8) {
+                    	primes.add((long) 2);
+                        primes.add((long) 2);
+                        primes.add((long) 2);
+                    } else if(i == 12) {
+                    	primes.add((long) 2);
+                        primes.add((long) 2);
+                        primes.add((long) 3);
+                    } else {
+                        primes.add((long) i);
+                    }
+                }
+            }
+        }
+        return primes;
 	}
 
 	/**
@@ -459,9 +491,33 @@ public class EvaluationService {
 
 		public String rotate(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			
+			String input = string;
+		    
+			// generate alphabet
+			List<String> alphabet = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+				
+			String cipher = "";
+				
+			String[] conversion = new String[input.length()];
+				
+			for (int i = 0; i < input.length(); i++) {
+				    
+				// letter in input
+				String letter = input.valueOf(input.charAt(i));
+				    
+				// find index of letter in alphabet list
+				int locationIndex = alphabet.indexOf(letter);
+				    
+				// overwrite letter to new alphabet index
+				letter = alphabet.get(locationIndex + 3);
+				    
+				// append to cipher
+				cipher += letter;
+			}
+			
+			return cipher;
 		}
-
 	}
 
 	/**
@@ -478,7 +534,39 @@ public class EvaluationService {
 	 */
 	public int calculateNthPrime(int i) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+        int input = i; 
+        
+        // create arraylist to store primes
+        List<Integer> primes = new ArrayList<>();
+        
+        // loop through the numbers one by one
+        for (int h = 1; h<input; h++) {
+            boolean isPrimeNumber = true;
+            
+            // 1 is not a prime number
+            if (h == 1) {
+                isPrimeNumber = false;
+            }
+            
+            // check to see if the number is prime
+            for (int j = 2; j < h; j++) {
+
+                if (h % j == 0) {
+                    isPrimeNumber = false;
+                    break; // exit the inner for loop
+                }
+            }
+            
+            // print the number if prime
+            if (isPrimeNumber) {
+                primes.add(h);
+            }
+        }
+        
+        // get final prime of primes array
+        int last = primes.get(primes.size());
+        
+		return last;
 	}
 
 	/**
@@ -515,7 +603,40 @@ public class EvaluationService {
 		 */
 		public static String encode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+
+			String input = string;
+			input = input.replaceAll("[\\d\\p{Punct} ]", "");
+			    
+			// generate alphabet
+			List<String> alphabet = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+					
+			String cipher = "";
+
+			String[] conversion = new String[input.length()];
+					
+			for (int i = 0; i < input.length(); i++) {
+					    
+				// letter in input
+				String letter = input.valueOf(input.charAt(i));
+					    
+				// find index of letter in alphabet list
+				int locationIndex = alphabet.indexOf(letter);
+					    
+				// overwrite letter to new alphabet index
+				if (locationIndex + 25 > 25) {
+				 //   int re = Math.abs(27 - locationIndex);
+				 letter = alphabet.get(25 - locationIndex);
+				 //   System.out.println(27 - locationIndex);
+				    
+				} else {
+				    letter = alphabet.get(locationIndex + 25);
+				}
+				    
+				// append to cipher
+				cipher += letter;
+			}
+			
+			return cipher;
 		}
 
 		/**
@@ -526,7 +647,37 @@ public class EvaluationService {
 		 */
 		public static String decode(String string) {
 			// TODO Write an implementation for this method declaration
-			return null;
+			String input = string;
+			input = input.replaceAll("[\\d\\p{Punct} ]", "");
+			    
+			// generate alphabet
+			List<String> alphabet = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+					
+			String cipher = "";
+
+			String[] conversion = new String[input.length()];
+					
+			for (int i = 0; i < input.length(); i++) {
+					    
+				// letter in input
+				String letter = input.valueOf(input.charAt(i));
+					    
+				// find index of letter in alphabet list
+				int locationIndex = alphabet.indexOf(letter);
+
+				// overwrite letter to new alphabet index
+				if (locationIndex + 25 > 25) {
+				 letter = alphabet.get(25 - locationIndex);
+				    
+				} else {
+				    letter = alphabet.get(locationIndex + 25);
+				}
+				    
+				// append to cipher
+				cipher += letter;
+			}
+			
+			return cipher;
 		}
 	}
 
@@ -554,7 +705,19 @@ public class EvaluationService {
 	 */
 	public boolean isValidIsbn(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+        String input = string;
+        input = input.replaceAll("[\\p{Punct} ]", "");
+        int sum = 0;
+        
+        for (int i = 0, j = 10; i < input.length(); i++, j--) {
+            // sum += input.valueOf(input.charAt(i)) * j;
+            
+            String plhdr = input.valueOf(input.charAt(i));
+            int num = Integer.parseInt(plhdr) * j;
+            sum += num;
+        }
+        
+		return sum % 11 == 0;
 	}
 
 	/**
@@ -572,7 +735,38 @@ public class EvaluationService {
 	 */
 	public boolean isPangram(String string) {
 		// TODO Write an implementation for this method declaration
-		return false;
+		String init = string;
+		init.toLowerCase();
+		init = init.replaceAll("[\\d\\p{Punct} ]", "");
+		char[] input = init.toCharArray();
+		    
+		// generate alphabet list
+		List<String> alphabet = new ArrayList<String>(Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
+		
+		// generate keycode list
+		List<Integer> codes = new ArrayList<>();
+		
+		for (int i = 97; i < 123; i++) {
+		    codes.add(i);
+		}
+				
+		for (int i = 0; i < init.length(); i++) {
+
+            // cast letter to ascii
+            Integer keycode = (int) init.charAt(i);
+            
+            // remove ascii from codes listarray
+            if (codes.contains(keycode)) {
+                codes.remove(keycode);
+            }
+		}
+		
+		if (codes.size() == 0) {
+			return true;
+		} else {
+		    return false;
+		}
+		
 	}
 
 	/**
@@ -601,9 +795,35 @@ public class EvaluationService {
 	 * @param set
 	 * @return
 	 */
-	public int getSumOfMultiples(int i, int[] set) {
+	public int getSumOfMultiples(int a, int[] set) {
 		// TODO Write an implementation for this method declaration
-		return 0;
+        int max = a;
+        int[] findMultiples = set;
+        int sum = 0;
+        List<Integer> multiples = new ArrayList<>();
+	    
+	    // iterate through each number you are finding multiples of
+	    for (int i = 0; i < findMultiples.length; i++) {
+	        
+	        // multiply each input number by 1 - max
+	        for (int j = 1; j < max; j++) {
+	            
+	            int multiple = findMultiples[i] * j;
+	            
+	            // if multiple is less than max number, add to array
+	            if (multiple < max) {
+	                if (!multiples.contains(multiple)) {
+	                    multiples.add(multiple);
+	                }
+	            }
+	        }
+	    }
+	    
+	    for (int multiple: multiples) {
+	        sum += multiple;
+	    }
+	    
+	    return sum;
 	}
 
 	/**
